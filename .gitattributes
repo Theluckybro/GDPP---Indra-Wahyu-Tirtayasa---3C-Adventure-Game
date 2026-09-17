@@ -169,3 +169,7 @@ Packages/packages-lock.json linguist-generated
 
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
+
+# TerrainData uses binary serialization even when scene serialization is text.
+Assets/Game/Resources/Level/ForestHillTerrain.asset binary
+Assets/Game/Resources/Level/Terrain/ForrestHillIslandTerrain.asset binary

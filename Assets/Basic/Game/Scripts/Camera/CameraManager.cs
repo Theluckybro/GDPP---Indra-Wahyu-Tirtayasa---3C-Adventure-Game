@@ -10,6 +10,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Vector2 _clampedVerticalRange = new Vector2(-45f, 45f);
     [SerializeField] private CinemachineCamera _tpsCamera;
     [SerializeField] private InputManager _inputManager;
+    [SerializeField] private bool _instantPerspectiveSwitch = true;
 
     private CinemachinePanTilt _panTilt;
     private Vector2 _defaultPanRange;
@@ -43,6 +44,21 @@ public class CameraManager : MonoBehaviour
             _defaultPanWrap = _panTilt.PanAxis.Wrap;
             _defaultTiltRange = _panTilt.TiltAxis.Range;
         }
+
+        if (_instantPerspectiveSwitch)
+        {
+            ApplyInstantBlend();
+        }
+    }
+
+    private void ApplyInstantBlend()
+    {
+        CinemachineBrain brain = FindFirstObjectByType<CinemachineBrain>();
+        if (brain == null)
+        {
+            return;
+        }
+        brain.DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.Cut, 0f);
     }
 
     public void SetFPSClampedCamera(bool isClamped, Vector3 playerRotation)
